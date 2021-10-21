@@ -67,6 +67,13 @@ declare namespace ClashProxy {
       path: string[];
       headers: Record<string, string>;
     }
+
+    interface WsOpts {
+      path: string;
+      headers: Record<string, string>;
+      "max-early-data": number;
+      "early-data-header-name": string;
+    }
   }
 
   interface VMessBasic {
@@ -82,8 +89,7 @@ declare namespace ClashProxy {
     "skip-cert-verify"?: boolean;
     servername?: string;
     network?: string;
-    "ws-path"?: string;
-    "ws-headers"?: Record<string, string>;
+    "ws-opts"?: VMess.WsOpts;
   }
 
   interface VMessH2 {

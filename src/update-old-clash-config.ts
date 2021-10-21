@@ -28,6 +28,15 @@ export function updateOldClashConfig(source: any): ClashConf {
         delete proxy.obfs;
         delete proxy["obfs-host"];
       }
+      if (proxy.type === "vmess" && proxy.network === "ws") {
+        proxy["ws-opts"] = {
+          ...proxy["ws-opts"],
+          path: proxy["ws-path"],
+          headers: proxy["ws-headers"],
+        };
+        delete proxy["ws-path"];
+        delete proxy["ws-headers"];
+      }
     }
   }
 

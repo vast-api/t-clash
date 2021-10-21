@@ -10,6 +10,7 @@ declare namespace ClashConf {
     type EnhancedMode = "redir-host" | "fake-ip";
     interface FallbackFilter {
       geoip: boolean;
+      "geoip-code": string;
       ipcidr: string[];
       domain: string[];
     }
@@ -50,6 +51,11 @@ declare namespace ClashConf {
     target: string | "DIRECT" | "REJECT";
     "no-resolve"?: boolean;
   }
+
+  interface Profile {
+    "store-selected": boolean;
+    tracing: boolean;
+  }
 }
 
 interface ClashConf {
@@ -74,6 +80,7 @@ interface ClashConf {
   "proxy-groups"?: ClashProxyGroup[];
   "proxy-providers": Record<string, ClashProxyProvider>;
   rules: string[];
+  profile?: ClashConf.Profile;
 }
 
 export default ClashConf;
