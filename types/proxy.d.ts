@@ -22,14 +22,14 @@ declare namespace ClashProxy {
     }
     type ClashPluginType = "websocket";
 
-    interface ClashPluginOptions {
+    interface V2rayPluginOptions {
       mode: "websocket";
       tls?: boolean;
       "skip-cert-verify"?: boolean;
-      host: string;
-      path: string;
-      mux: boolean;
-      headers: Record<string, string>;
+      host?: string;
+      path?: string;
+      mux?: boolean;
+      headers?: Record<string, string>;
     }
   }
 
@@ -48,12 +48,12 @@ declare namespace ClashProxy {
     "plugin-opts": Shadowsocks.ObfsPluginOptions;
   }
 
-  interface ShadowsocksClash extends ShadowsocksSimple {
-    plugin: "Clash-plugin";
-    "plugin-opts": Shadowsocks.ClashPluginOptions;
+  interface ShadowsocksV2Ray extends ShadowsocksSimple {
+    plugin: "v2ray-plugin";
+    "plugin-opts": Shadowsocks.V2rayPluginOptions;
   }
 
-  type Shadowsocks = ShadowsocksSimple | ShadowsocksObfs | ShadowsocksClash;
+  type Shadowsocks = ShadowsocksSimple | ShadowsocksObfs | ShadowsocksV2Ray;
 
   declare namespace VMess {
     type Cipher = "auto" | "aes-128-gcm" | "chacha20-poly1305" | "none";
@@ -63,27 +63,34 @@ declare namespace ClashProxy {
     }
 
     interface HttpOpts {
-      method: string;
-      path: string[];
-      headers: Record<string, string>;
+      method?: string;
+      path?: string[];
+      headers?: Record<string, string>;
     }
 
     interface WsOpts {
-      path: string;
-      headers: Record<string, string>;
-      "max-early-data": number;
-      "early-data-header-name": string;
+      path?: string;
+      headers?: Record<string, string>;
+      "max-early-data"?: number;
+      "early-data-header-name"?: string;
+    }
+
+    interface GrpcOpts {
+      "grpc-service-name": string;
+    }
+
+    interface VMessBase {
+      name: string;
+      type: "vmess";
+      server: string;
+      port: number;
+      uuid: string;
+      alterId: number;
+      cipher: VMess.Cipher;
     }
   }
 
-  interface VMessBasic {
-    name: string;
-    type: "vmess";
-    server: string;
-    port: number;
-    uuid: string;
-    alterId: number;
-    cipher: VMess.Cipher;
+  interface VMessBasicAndWs extends VMess.VMessBase {
     udp?: boolean;
     tls?: boolean;
     "skip-cert-verify"?: boolean;
@@ -92,33 +99,27 @@ declare namespace ClashProxy {
     "ws-opts"?: VMess.WsOpts;
   }
 
-  interface VMessH2 {
-    name: string;
-    type: "vmess";
-    server: string;
-    port: number;
-    uuid: string;
-    alterId: number;
-    cipher: string;
-    network: string;
+  interface VMessH2 extends VMess.VMessBase {
+    network: "h2";
     tls: boolean;
     "h2-opts": VMess.H2Opts;
   }
 
-  interface VMessHttp {
-    name: string;
-    type: "vmess";
-    server: string;
-    port: number;
-    uuid: string;
-    alterId: number;
-    cipher: string;
-    udp: boolean;
-    network: string;
+  interface VMessHttp extends VMess.VMessBase {
+    network: "http";
+    udp?: boolean;
     "http-opts": VMess.HttpOpts;
   }
 
-  type VMess = VMessBasic | VMessH2 | VMessHttp;
+  interface VMessGrpc extends VMess.VMessBase {
+    network: "grpc";
+    tls?: boolean;
+    "skip-cert-verify"?: boolean;
+    servername?: string;
+    "grpc-opts": GrpcOpts;
+  }
+
+  type VMess = VMessBasicAndWs | VMessH2 | VMessHttp | VMessGrpc;
 
   interface Socks {
     name: string;
@@ -161,7 +162,13 @@ declare namespace ClashProxy {
     "obfs-opts": Snell.ObfsOpts;
   }
 
-  interface Trojan {
+  declare namespace Trojan {
+    interface GrpcOpts {
+      "grpc-service-name": string;
+    }
+  }
+
+  interface TrojanNormal {
     name: string;
     type: "trojan";
     server: string;
@@ -172,6 +179,12 @@ declare namespace ClashProxy {
     alpn?: string[];
     "skip-cert-verify"?: boolean;
   }
+
+  interface TrojanGrpc extends TrojanNormal {
+    "grpc-opts": Trojan.GrpcOpts;
+  }
+
+  type Trojan = TrojanNormal | TrojanGrpc;
 
   declare namespace ShadowsocksR {
     type Cipher = Shadowsocks.Cipher;
