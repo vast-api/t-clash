@@ -26,3 +26,9 @@ export function parseRules(rules: string[]): ClashConf.ParsedRule[] {
       return parsedRule;
     });
 }
+
+export function unparseRules(rules: ClashConf.ParsedRule[]): string[] {
+  return rules.map((i) =>
+    [i.type, i.options, i.target, i["no-resolve"]].filter((i) => i).join("")
+  );
+}
