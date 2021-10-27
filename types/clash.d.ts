@@ -61,7 +61,7 @@ declare namespace ClashConf {
 interface ClashConf {
   port: number;
   "socks-port": number;
-  "redir-port?": number;
+  "redir-port"?: number;
   "tproxy-port"?: number;
   "mixed-port"?: number;
   authentication?: string[];
