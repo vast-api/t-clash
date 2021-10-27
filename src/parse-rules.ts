@@ -11,16 +11,23 @@ export function parseRules(rules: string[]): ClashConf.ParsedRule[] {
       if (type === "MATCH") {
         parsedRule = {
           type: type as ClashConf.ParsedRule.Type,
+          target: p1,
+        };
+        if (p2 === "no-resolve") parsedRule["no-resolve"] = true;
+      } else {
+        parsedRule = {
+          type: type as ClashConf.ParsedRule.Type,
           options: p1,
           target: p2,
         };
         if (p3 === "no-resolve") parsedRule["no-resolve"] = true;
-      } else {
-        parsedRule = {
-          type: type as ClashConf.ParsedRule.Type,
-          target: p1,
-        };
-        if (p2 === "no-resolve") parsedRule["no-resolve"] = true;
+      }
+
+      if (
+        parsedRule["no-resolve"] &&
+        !["GEOIP", "IP-CIDR", "IP-CIDR6"].includes(parsedRule.type)
+      ) {
+        throw "no-resolve only works for GEOIP,IP-CIDR,IP-CIDR6";
       }
 
       return parsedRule;
