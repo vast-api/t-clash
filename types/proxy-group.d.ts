@@ -1,3 +1,5 @@
+import ClashProxy from "./proxy";
+
 declare namespace ClashProxyGroup {
   interface Relay {
     name: string;
@@ -48,6 +50,7 @@ type ClashProxyGroup =
   | ClashProxyGroup.Relay
   | ClashProxyGroup.UrlTest
   | ClashProxyGroup.Fallback
-  | ClashProxyGroup.LoadBalance;
+  | ClashProxyGroup.LoadBalance
+  | ClashProxyGroup.Select;
 
 export default ClashProxyGroup;
