@@ -1,6 +1,6 @@
 {
   "name": "@vast-api/t-clash",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "types and utils to help you build clash config",
   "main": "dist/index.js",
   "repository": "git@github.com:vast-api/t-clash.git",
