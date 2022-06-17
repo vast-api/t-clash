@@ -1,6 +1,6 @@
 {
   "name": "@vast-api/t-clash",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "types and utils to help you build clash config",
   "type": "module",
   "main": "dist/index.js",
