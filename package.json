@@ -8,7 +8,8 @@
   "author": "GeekTR <geektheripper@gmail.com>",
   "license": "MSPL",
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "scripts": {
     "clean": "rimraf dist",
