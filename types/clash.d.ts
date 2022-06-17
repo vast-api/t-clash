@@ -28,6 +28,7 @@ declare namespace ClashConf {
     nameserver: string[];
     fallback: string[];
     "fallback-filter": DNS.FallbackFilter;
+    "nameserver-policy"?: Record<string, string>
   }
 
   declare namespace ParsedRule {
@@ -54,6 +55,7 @@ declare namespace ClashConf {
 
   interface Profile {
     "store-selected": boolean;
+    "store-fake-ip"?: boolean;
     tracing: boolean;
   }
 }
@@ -74,6 +76,7 @@ interface ClashConf {
   "external-ui"?: string;
   secret?: string;
   "interface-name"?: string;
+  "routing-mark"?: number;
   hosts?: Record<string, string>;
   dns: ClashConf.DNS;
   proxies?: ClashProxy[];

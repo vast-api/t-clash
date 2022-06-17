@@ -166,6 +166,10 @@ declare namespace ClashProxy {
     interface GrpcOpts {
       "grpc-service-name": string;
     }
+    interface WsOpts {
+      path?: "string"
+      headers?: Record<string, string>
+    }
   }
 
   interface TrojanNormal {
@@ -184,7 +188,12 @@ declare namespace ClashProxy {
     "grpc-opts": Trojan.GrpcOpts;
   }
 
-  type Trojan = TrojanNormal | TrojanGrpc;
+  interface TrojanWs extends TrojanNormal {
+    network: "ws";
+    "ws-opts": Trojan.WsOpts;
+  }
+
+  type Trojan = TrojanNormal | TrojanGrpc | TrojanWs;
 
   declare namespace ShadowsocksR {
     type Cipher = Shadowsocks.Cipher;
