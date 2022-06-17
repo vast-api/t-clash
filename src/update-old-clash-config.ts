@@ -8,8 +8,9 @@ const keyUpdateMap: Record<string, string> = {
 };
 
 // https://github.com/Dreamacro/clash/wiki/breaking-changes-in-1.0.0
-export function updateOldClashConfig(source: any): ClashConf {
+export function updateOldClashConfig(source: object): ClashConf {
   const result = Object.fromEntries(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Object.entries(source).map(([key, value]: [string, any]) => [
       keyUpdateMap[key] || key,
       value,

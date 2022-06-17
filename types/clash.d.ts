@@ -1,6 +1,6 @@
-import ClashProxy from "./proxy";
-import ClashProxyGroup from "./proxy-group";
-import ClashProxyProvider from "./proxy-provider";
+import ClashProxyGroup from "./proxy-group.js";
+import ClashProxyProvider from "./proxy-provider.js";
+import ClashProxy from "./proxy.js";
 
 declare namespace ClashConf {
   type Mode = "rule" | "global" | "direct";

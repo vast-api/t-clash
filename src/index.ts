@@ -5,5 +5,5 @@ import ClashProxyProvider from "../types/proxy-provider";
 
 export { ClashProxy, ClashProxyGroup, ClashProxyProvider, ClashConf };
 
-export { updateOldClashConfig } from "./update-old-clash-config";
-export { parseRules } from "./parse-rules";
+export { updateOldClashConfig } from "./update-old-clash-config.js";
+export { parseRules } from "./parse-rules.js";

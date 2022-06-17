@@ -2,29 +2,43 @@
   "name": "@vast-api/t-clash",
   "version": "0.0.6",
   "description": "types and utils to help you build clash config",
+  "type": "module",
   "main": "dist/index.js",
   "repository": "git@github.com:vast-api/t-clash.git",
   "author": "GeekTR <geektheripper@gmail.com>",
   "license": "MSPL",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "clean": "rimraf dist",
     "build": "tsc -p tsconfig.json",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:lint": "eslint src --ext .ts --fix",
-    "watch:build": "tsc -p tsconfig.json -w"
+    "watch:build": "tsc -p tsconfig.json -w",
+    "publish:patch": "yarn publish --patch --access public",
+    "publish:minor": "yarn publish --minor --access public",
+    "push": "git push",
+    "bpp": "run-s fix clean build publish:patch push",
+    "bpp:minor": "run-s fix clean build publish:minor push"
+  },
+  "engines": {
+    "node": ">=14.16"
   },
   "devDependencies": {
-    "@types/node": "^14.14.10",
-    "@typescript-eslint/eslint-plugin": "^4.9.1",
-    "@typescript-eslint/parser": "^4.9.1",
-    "eslint": "^7.15.0",
-    "eslint-config-prettier": "^7.0.0",
+    "@sindresorhus/tsconfig": "^2.0.0",
+    "@types/node": "^16",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.26.0",
     "npm-run-all": "^4.1.5",
-    "open-cli": "^6.0.1",
-    "prettier": "^2.2.1",
-    "ts-node": "^9.1.0",
-    "typescript": "^4.1.2"
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.3"
   }
 }

@@ -5,7 +5,12 @@ export function parseRules(rules: string[]): ClashConf.ParsedRule[] {
   return rules
     .filter((i) => i)
     .map((i) => {
-      const [type, p1, p2, p3] = i.split(",");
+      const [type, p1, p2, p3] = i.split(",") as [
+        string,
+        string,
+        string,
+        string
+      ];
       let parsedRule: ClashConf.ParsedRule;
 
       if (type === "MATCH") {

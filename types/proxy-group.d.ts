@@ -1,5 +1,3 @@
-import ClashProxy from "./proxy";
-
 declare namespace ClashProxyGroup {
   interface Relay {
     name: string;
